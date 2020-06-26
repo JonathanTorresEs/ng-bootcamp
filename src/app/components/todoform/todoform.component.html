@@ -1,0 +1,16 @@
+<form [formGroup]="form" novalidate>
+  <input
+    type="text"
+    formControlName="title"
+    placeholder="Title"
+    class="form-control form-control lg">
+
+  <input
+    type="text"
+    formControlName="task"
+    placeholder="Add new task"
+    class="form-control form-control lg"
+    (keyup.enter)="addNewTask(form)"
+    required
+    maxlength="10" >
+</form>

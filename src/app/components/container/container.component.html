@@ -1,0 +1,14 @@
+<div class="row justify-content-center">
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-body">
+        <app-todoform></app-todoform>
+        <ul class="list-group">
+          <div *ngFor="let item of toDoList">
+            <app-todo [todoItem]="item"></app-todo>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

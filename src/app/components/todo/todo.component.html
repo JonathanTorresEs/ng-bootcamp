@@ -1,0 +1,15 @@
+<div>
+  <input type="checkbox"
+         name="completed"
+         [checked]="todoItem.completed"
+         (click)="toggleComplete()"
+         style="display: inline-block"
+         *ngIf="todoItem.id">
+  <div [id]="todoItem.id"
+       class="list-group-item"
+       style="display: inline-block"
+       [ngStyle]="{textDecoration: getStrikeThrough()}"
+       *ngIf="todoItem.id"> {{todoItem.task}} </div>
+  <button *ngIf="todoItem.id" type="button" class="btn btn-danger" style="display: inline-block" (click)="deleteTodoItem()"> X </button>
+</div>
+
