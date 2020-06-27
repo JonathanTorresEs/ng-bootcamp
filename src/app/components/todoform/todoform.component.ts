@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService } from '../../services/mainservice.service';
 import { Todo } from '../../interfaces/todo';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { validators } from '../../utils/util';
+import { errors } from '../../utils/errorMsg';
 
 
 @Component({
@@ -20,15 +22,27 @@ export class TodoformComponent implements OnInit {
     this.form = this.createForm();
   }
 
-  createForm() {
+  createForm(): FormGroup {
     return this.formBuilder.group({
       title: '',
-      task: ['', [Validators.maxLength(10), Validators.required]],
-      email: ['',   customValidator]
+      task: ['', [Validators.minLength(3), Validators.required]],
+      email: ['', [validators.customValidator]],
+      password: [''],
+      confirmPassword: ['']
+    }, {
+      validators: [validators.passwordMatch]
     });
   }
 
-  addNewTask({ valid, value }: {valid: boolean, value: string }) {
+  get email(): AbstractControl {
+    return this.form.get('email');
+  }
+
+  get task(): AbstractControl {
+    return this.form.get('task');
+  }
+
+  addNewTask({ valid, value }: {valid: boolean, value: string }): void {
     if (valid) {
       const toDo = new Todo(value);
       this.mainService.addNewToDo(toDo);
@@ -36,21 +50,12 @@ export class TodoformComponent implements OnInit {
     }
   }
 
-    /* if ( value && value.indexOf('@') !== -1) {
-      return {
-        email : true
-      };
+  getErrorMessage(control: AbstractControl): string | null {
+    for (const propertyErrorName in control.errors) {
+      if (control.errors.hasOwnProperty(propertyErrorName)) {
+        return errors[propertyErrorName];
+      }
     }
-    return null; */
-}
-
-function customValidator(control: FormControl)
-{
-  console.log(control);
-  const {value} = control;
-  const EMAIL_REGEX = new RegExp(`^[a-z0-9%._+-]+@[a-z0-9.-]\.[a-z]{2,4}$`);
-
-  return EMAIL_REGEX.test(value) ? null : {
-    emailValid: false
-  };
+    return null;
+  }
 }

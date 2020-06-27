@@ -4,17 +4,34 @@
     formControlName="title"
     placeholder="Title"
     class="form-control form-control lg">
-
-  <input
-    type="text"
-    formControlName="task"
-    placeholder="Add new task"
-    class="form-control form-control lg"
-    (keyup.enter)="addNewTask(form)"
-    required
-    maxlength="10" >
-
-  <input
-    type="text"
-    formControlName="task" >
+  <div>
+    <input
+      type="text"
+      formControlName="task"
+      placeholder="Add new task"
+      class="form-control form-control lg"
+      (keyup.enter)="addNewTask(form)">
+    <span *ngIf="task.invalid && (task.dirty || task.touched)"> </span>
+  </div>
+  <hr>
+  <div>
+    <input
+      type="text"
+      formControlName="email"
+      placeholder="Enter your email">
+    <span *ngIf="email.errors?.emailInvalid && (email.dirty || email.touched)"> Invalid Email </span>
+  </div>
+  <div>
+    <input
+      type="text"
+      formControlName="password"
+      placeholder="Enter your password">
+  </div>
+  <div>
+    <input
+      type="text"
+      formControlName="confirmPassword"
+      placeholder="Confirm your password">
+    <span *ngIf="email.errors?.notEqual"> Passwords do not match </span>
+  </div>
 </form>
