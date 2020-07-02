@@ -11,26 +11,8 @@ import { TodoformComponent } from './components/todoform/todoform.component';
 import {MainService} from './services/mainservice.service';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
-
-const routes: Routes = [
-    {
-      path: '',
-      redirectTo: '/login',
-      pathMatch: 'full'
-    },
-    {
-      path: 'login',
-      component: LoginComponent
-    },
-    {
-      path: 'signup',
-      component: SignupComponent
-    },
-    {
-      path: 'todolist',
-      component: ContainerComponent
-    }
-  ];
+import {AppRoutingModule} from './app-routing.module';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -40,13 +22,14 @@ const routes: Routes = [
     ContainerComponent,
     TodoformComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    AppRoutingModule
   ],
   providers: [MainService],
   bootstrap: [AppComponent]
